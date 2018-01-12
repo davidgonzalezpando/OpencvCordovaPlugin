@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-opencv-plugin" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+	<name>OpencvPlugin</name>
+	<js-module name="OpencvPlugin" src="www/OpencvPlugin.js">
+		<clobbers target="OpencvPlugin"/>
+	</js-module>
+	<platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="OpencvPlugin">
+				<param name="android-package" value="com.mycompany.plugin.OpencvPlugin"/>
+			</feature>
+		</config-file>
+		<config-file parent="/*" target="AndroidManifest.xml"/>
+		<source-file src="src/android/OpencvPlugin.java" target-dir="src/cordova-opencv-plugin/OpencvPlugin"/>
+	</platform>
+</plugin>
