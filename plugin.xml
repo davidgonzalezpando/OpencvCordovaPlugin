@@ -12,5 +12,9 @@
 		</config-file>
 		<config-file parent="/*" target="AndroidManifest.xml"/>
 		<source-file src="src/android/OpencvPlugin.java" target-dir="src/cordova-opencv-plugin/OpencvPlugin"/>
+
+		<!-- 添加opencv aar编译 -->
+		<framework src="src/android/buildopencv.gradle" custom="true" type="gradleReference" />
+        <resource-file src="opencvlibs/opencv34.aar" target="libs/opencv34.aar" />	
 	</platform>
 </plugin>
