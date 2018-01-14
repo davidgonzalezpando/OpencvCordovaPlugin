@@ -15,6 +15,11 @@
 
 		<!-- 添加opencv aar编译 -->
 		<framework src="src/android/buildopencv.gradle" custom="true" type="gradleReference" />
-        <resource-file src="opencvlibs/opencv34.aar" target="libs/opencv34.aar" />	
+        <resource-file src="opencvlibs/opencv34.aar" target="libs/opencv34.aar" />
+
+		<!--启用全部目录-->
+		<!--<preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />-->
+
+
 	</platform>
 </plugin>

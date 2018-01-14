@@ -63,6 +63,10 @@ import org.opencv.core.KeyPoint;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -122,9 +126,10 @@ public class OpencvPlugin extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+        Log.i(TAG, "zqc execute," + action);
         if (action.equals("cvtColor")) {
             String message = args.getString(0);
-            this.cvtColor(message, callbackContext);
+            cvtColor(message, callbackContext);
             return true;
         } else if ("echo".equals(action)) {
             echo(args.getString(0), callbackContext);
@@ -151,14 +156,55 @@ public class OpencvPlugin extends CordovaPlugin {
     }
 
     private void cvtColor(String message, CallbackContext callbackContext) {
-        Log.d("zqc", "cvtColor");
-        if (message != null && message.length() > 0) {
-            callbackContext.success(message);
-        } else {
-            callbackContext.error("Expected one non-empty string argument.");
-        }
+        Log.d("zqc", "cvtColor" + message);
+        File file = new File(Environment.getExternalStorageDirectory() + File.separator  + "Lenna.png");
+        String msg = "unset";
+        if(file.exists()){
+           Bitmap srcBitmap = BitmapFactory.decodeFile(file.getPath());
+            msg = grayConvert(srcBitmap);
+         }
+         callbackContext.success(msg);
     }
 
+
+    private String grayConvert(Bitmap mBitmap) {
+        Mat rgbMat = new Mat();
+        Mat grayMat = new Mat();
+        //获取lena彩色图像所对应的像素数据
+        Utils.bitmapToMat(mBitmap, rgbMat);
+        //将彩色图像数据转换为灰度图像数据并存储到grayMat中
+        Imgproc.cvtColor(rgbMat, grayMat, Imgproc.COLOR_RGB2GRAY);
+        //创建一个灰度图像
+        Bitmap grayBmp = Bitmap.createBitmap(mBitmap.getWidth(), mBitmap.getHeight(), Bitmap.Config.RGB_565);
+        //将矩阵grayMat转换为灰度图像
+        Utils.matToBitmap(grayMat, grayBmp);
+        String name = "Lenna_gray.png";
+        saveBitmap(grayBmp, name);
+        return name;
+
+    }
+
+
+    private void saveBitmap(Bitmap bitmap, String bitName){
+        File file = new File(Environment.getExternalStorageDirectory().toString(), bitName);
+        if (file.exists()) {
+            file.delete();
+        }
+        FileOutputStream out;
+        try {
+            out = new FileOutputStream(file);
+            if (bitmap.compress(Bitmap.CompressFormat.PNG, 90, out)) {
+                out.flush();
+                out.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.d("zqc", "file not found");
+            e.printStackTrace();
+        } catch (IOException e) {
+            Log.d("zqc", "io error");
+            e.printStackTrace();
+        }
+    }
 
 
     //===========cordova callback event
