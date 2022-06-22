@@ -1,7 +1,7 @@
 {
-  "name": "cordova-opencv-plugin",
+  "name": "openCV-Plugin",
   "version": "0.0.1",
-  "description": "",
+  "description": "opencv",
   "cordova": {
     "id": "cordova-opencv-plugin",
     "platforms": [
@@ -12,6 +12,14 @@
     "ecosystem:cordova",
     "cordova-android"
   ],
-  "author": "",
-  "license": "ISC"
+  "author": "david",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidgonzalezpando/OpencvCordovaPlugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/davidgonzalezpando/OpencvCordovaPlugin/issues"
+  },
+  "homepage": "https://github.com/davidgonzalezpando/OpencvCordovaPlugin#readme"
 }
