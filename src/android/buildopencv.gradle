@@ -6,7 +6,7 @@ repositories{
 }
 
 dependencies {
-   compile(name: 'opencv34', ext: 'aar')
+   compile(name: 'opencv4531', ext: 'aar')
 }
 
 android {
